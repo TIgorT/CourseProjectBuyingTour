@@ -3,7 +3,7 @@
 ## Документация
 
 1. [Текст задания](https://github.com/netology-code/aqa-qamid-diplom)
-2. [План автоматизации]()
+2. [План автоматизации](https://github.com/TIgorT/CourseProjectBuyingTour/blob/main/documents/Plan.md)
 3. [Отчёт о проведенном тестировании]()
 4. [Отчет о проведённой автоматизации тестирования]()
 
