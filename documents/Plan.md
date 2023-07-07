@@ -69,7 +69,7 @@
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
             <td align="center">Ввести в поле "Номер карты" 1111 2222 3333 4444</td>
-            <td rowspan=6 align="center"> Сообщение "Операция одобрена Банком."</td>
+            <td rowspan=6 align="center"> Сообщение "Операция одобрена Банком." и появление  записи в БД</td>
         </tr>
         <tr>
             <td align="center">Заполнить поле "Месяц" валидным значением</td>
@@ -92,7 +92,7 @@
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
             <td align="center">Ввести в поле "Номер карты" 5555 6666 7777 8888</td>
-            <td rowspan=6 align="center">Сообщение "Ошибка! Банк отказал в проведении операции."</td>
+            <td rowspan=6 align="center">Сообщение "Ошибка! Банк отказал в проведении операции. " и появление  записи в БД</td>
         </tr>
         <tr>
             <td align="center">Заполнить поле "Месяц" валидным значением</td>
