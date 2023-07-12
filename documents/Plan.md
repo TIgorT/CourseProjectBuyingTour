@@ -109,8 +109,31 @@
           <tr>
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
-        <tr>
+         <tr>
             <td rowspan=6 align="center">3</td>
+            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием шестнадцати рандомных цифровых символов в поле "Номер карты""</td>
+            <td rowspan=6 align="center">Высокий</td>
+            <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
+            <td align="center">Ввести в поле "Номер карты" ввести шестнадцать рандомных цифровых символов</td>
+            <td rowspan=6 align="center">Сообщение "Ошибка! Банк отказал в проведении операции."</td>
+        </tr>
+        <tr>
+            <td align="center">Заполнить поле "Месяц" валидным значением</td>
+        </tr>
+        <tr>
+            <td align="center">Заполнить поле "Год" валидным значением</td>
+        </tr>
+        <tr>
+            <td align="center">Заполнить поле "Владелец" валидным значением</td>
+        </tr>
+         <tr>
+            <td align="center">Заполнить поле "CVC/CVV" валидным значением</td>
+        </tr>
+          <tr>
+            <td align="center">Нажать на кнопку "Продолжить"</td>
+        </tr>
+        <tr>
+            <td rowspan=6 align="center">4</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием тринадцати цифровых символов в поле "Номер карты"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -133,7 +156,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">4</td>
+            <td rowspan=6 align="center">5</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием пятнадцати цифровых символов в поле "Номер карты"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -156,76 +179,31 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">5</td>
-            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием восемнадцати цифровых символов в поле "Номер карты"</td>
-            <td rowspan=6 align="center">Высокий</td>
-            <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
-            <td align="center">Ввести в поле "Номер карты" ввести восемнадцать рандомных цифровых символов</td>
-            <td rowspan=6 align="center">Сообщение "Ошибка! Банк отказал в проведении операции."</td>
+            <td align="center">6</td>
+            <td align="left">Оплата тура "Путешествие дня" с использованием восемнадцати цифровых символов в поле "Номер карты"</td>
+            <td align="center">Высокий</td>
+            <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
+            <td align="center">Ввести в поле "Номер карты" восемнадцать рандомных цифровых символов</td>
+            <td align="center">В поле "Номер карты" отобразится всемнадцать введённых цифр</td>
         </tr>
         <tr>
-            <td align="center">Заполнить поле "Месяц" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Год" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Владелец" валидным значением</td>
-        </tr>
-         <tr>
-            <td align="center">Заполнить поле "CVC/CVV" валидным значением</td>
-        </tr>
-          <tr>
-            <td align="center">Нажать на кнопку "Продолжить"</td>
-        </tr>
-        <tr>
-            <td rowspan=6 align="center">6</td>
-            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием девятнадцати цифровых символов в поле "Номер карты"</td>
-            <td rowspan=6 align="center">Высокий</td>
-            <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
+            <td align="center">7</td>
+            <td align="left">Оплата тура "Путешествие дня" с использованием девятнадцати цифровых символов в поле "Номер карты"</td>
+            <td align="center">Высокий</td>
+            <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
             <td align="center">Ввести в поле "Номер карты" ввести девятнадцать рандомных цифровых символов</td>
-            <td rowspan=6 align="center">Сообщение "Ошибка! Банк отказал в проведении операции."</td>
+            <td align="center">В поле "Номер карты" отобразится девятнадцать введённых цифр</td>
         </tr>
         <tr>
-            <td align="center">Заполнить поле "Месяц" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Год" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Владелец" валидным значением</td>
-        </tr>
-         <tr>
-            <td align="center">Заполнить поле "CVC/CVV" валидным значением</td>
-        </tr>
-          <tr>
-            <td align="center">Нажать на кнопку "Продолжить"</td>
-        </tr>
-        <tr>
-            <td rowspan=6 align="center">7</td>
-            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием двадцати цифровых символов в поле "Номер карты"</td>
-            <td rowspan=6 align="center">Высокий</td>
-            <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
+            <td align="center">8</td>
+            <td align="left">Оплата тура "Путешествие дня" с использованием двадцати цифровых символов в поле "Номер карты"</td>
+            <td align="center">Высокий</td>
+            <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
             <td align="center">Ввести в поле "Номер карты" ввести двадцать рандомных цифровых символов</td>
-            <td rowspan=6 align="center">В поле "Номер карты" введётся 19 цифр и появится сообщение "Ошибка! Банк отказал в проведении операции."</td>
+            <td align="center">В поле "Номер карты" отобразится девятнадцать введённых цифр</td>
         </tr>
         <tr>
-            <td align="center">Заполнить поле "Месяц" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Год" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Владелец" валидным значением</td>
-        </tr>
-         <tr>
-            <td align="center">Заполнить поле "CVC/CVV" валидным значением</td>
-        </tr>
-          <tr>
-            <td align="center">Нажать на кнопку "Продолжить"</td>
-        </tr> 
-        <tr>
-            <td rowspan=6 align="center">8</td>
+            <td rowspan=6 align="center">9</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием одного цифрового символа в поле "Номер карты"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -248,7 +226,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr> 
          <tr>
-            <td align="center">9</td>
+            <td align="center">10</td>
             <td align="left">Оплата тура "Путешествие дня" с использованием буквенных символов в поле "Номер карты"</td>
             <td align="center">Высокий</td>
             <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -256,7 +234,7 @@
             <td align="center"> поле "Номер карты" останется пустым</td>
         </tr>
          <tr>
-            <td align="center">10</td>
+            <td align="center">11</td>
             <td align="left">Оплата тура "Путешествие дня" с использованием спец символов в поле "Номер карты"</td>
             <td align="center">Высокий</td>
             <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -264,7 +242,7 @@
             <td align="center"> поле "Номер карты" останется пустым</td>
         </tr>
          <tr>
-            <td rowspan=6 align="center">11</td>
+            <td rowspan=6 align="center">12</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием пустого поля "Номер карты"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -287,7 +265,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr> 
         <tr>
-            <td rowspan=6 align="center">12</td>
+            <td rowspan=6 align="center">13</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием одного цифрового символа в поле "Месяц"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -310,7 +288,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
           <tr>
-            <td rowspan=6 align="center">13</td>
+            <td rowspan=6 align="center">14</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием трёх цифровых символов в поле "Месяц"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -333,7 +311,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
            <tr>
-            <td rowspan=6 align="center">14</td>
+            <td rowspan=6 align="center">15</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с введением в поле"Месяц" значения 13 </td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -356,7 +334,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td align="center">15</td>
+            <td align="center">16</td>
             <td align="left">Оплата тура "Путешествие дня" с использованием буквенных символов в поле "Месяц"</td>
             <td align="center">Высокий</td>
             <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -364,7 +342,7 @@
             <td align="center"> поле "Месяц" останется пустым</td>
         </tr>
          <tr>
-            <td align="center">16</td>
+            <td align="center">17</td>
             <td align="left">Оплата тура "Путешествие дня" с использованием спец символов в поле "Месяц"</td>
             <td align="center">Высокий</td>
             <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -372,7 +350,7 @@
             <td align="center"> поле "Месяц" останется пустым</td>
         </tr>
           <tr>
-            <td rowspan=6 align="center">17</td>
+            <td rowspan=6 align="center">18</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с пустым полем "Месяц"</td>
             <td rowspan=6 align="center">Средний</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -395,7 +373,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
          <tr>
-            <td rowspan=6 align="center">18</td>
+            <td rowspan=6 align="center">19</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием одного цифрового символа в поле "Год"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -418,7 +396,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
          <tr>
-            <td rowspan=6 align="center">19</td>
+            <td rowspan=6 align="center">20</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием трёх цифровых символов в поле "Год"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -441,7 +419,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
          <tr>
-            <td rowspan=6 align="center">20</td>
+            <td rowspan=6 align="center">21</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с введением в поле "Год" прошлогодней даты</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -464,7 +442,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr> 
          <tr>
-            <td rowspan=6 align="center">21</td>
+            <td rowspan=6 align="center">22</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с введением в поле "Год" даты (плюс шесть лет к текущему году)</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -487,7 +465,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr> 
         <tr>
-            <td align="center">22</td>
+            <td align="center">23</td>
             <td align="left">Оплата тура "Путешествие дня" с использованием буквенных символов в поле "Год"</td>
             <td align="center">Высокий</td>
             <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -495,7 +473,7 @@
             <td align="center"> поле "Год" останется пустым</td>
         </tr>
          <tr>
-            <td align="center">23</td>
+            <td align="center">24</td>
             <td align="left">Оплата тура "Путешествие дня" с использованием спец символов в поле "Год"</td>
             <td align="center">Высокий</td>
             <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -503,7 +481,7 @@
             <td align="center"> поле "Год" останется пустым</td>
         </tr>
          <tr>
-            <td rowspan=6 align="center">24</td>
+            <td rowspan=6 align="center">25</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с пустым полем "Год"</td>
             <td rowspan=6 align="center">Средний</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -526,7 +504,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr> 
         <tr>
-            <td rowspan=6 align="center">25</td>
+            <td rowspan=6 align="center">26</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием одного буквенного символа в поле "Владелец"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -549,7 +527,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">26</td>
+            <td rowspan=6 align="center">27</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием двадцати одного буквенного символа в поле "Владелец"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -572,7 +550,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
          <tr>
-            <td rowspan=6 align="center">27</td>
+            <td rowspan=6 align="center">28</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с введением в поле "Владелец" только имени на латинице</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -595,7 +573,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">28</td>
+            <td rowspan=6 align="center">29</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с написанием в поле "Владелец" имени и фамилии латиницей через  символ "-"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -618,7 +596,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">29</td>
+            <td rowspan=6 align="center">30</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с написанием в поле "Владелец" имени и фамилии кириллицей</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -641,7 +619,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">30</td>
+            <td rowspan=6 align="center">31</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с написанием в поле "Владелец" имени и фамилии, используя спецсимволы</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -664,7 +642,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">31</td>
+            <td rowspan=6 align="center">32</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с написанием в поле "Владелец" имени и фамилии, используя цифровые символы</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -687,7 +665,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">32</td>
+            <td rowspan=6 align="center">33</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с пустым полем "Владелец"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -710,7 +688,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">33</td>
+            <td rowspan=6 align="center">34</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием одно цифрового символа в поле "CVC/CVV"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -733,7 +711,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
          <tr>
-            <td rowspan=6 align="center">34</td>
+            <td rowspan=6 align="center">35</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием четырёх цифровых символов в поле "CVC/CVV"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -756,7 +734,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td align="center">35</td>
+            <td align="center">36</td>
             <td align="left">Оплата тура "Путешествие дня" с использованием буквенных символов в поле "CVC/CVV"</td>
             <td align="center">Высокий</td>
             <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -764,7 +742,7 @@
             <td align="center"> поле "CVC/CVV" останется пустым</td>
         </tr>
          <tr>
-            <td align="center">36</td>
+            <td align="center">37</td>
             <td align="left">Оплата тура "Путешествие дня" с использованием спецсимволов в поле "CVC/CVV"</td>
             <td align="center">Высокий</td>
             <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -772,7 +750,7 @@
             <td align="center"> поле "CVC/CVV" останется пустым</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">37</td>
+            <td rowspan=6 align="center">38</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием пустого поля "CVC/CVV"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
