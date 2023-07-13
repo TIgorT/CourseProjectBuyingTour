@@ -288,28 +288,12 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
           <tr>
-            <td rowspan=6 align="center">14</td>
-            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием трёх цифровых символов в поле "Месяц"</td>
-            <td rowspan=6 align="center">Высокий</td>
-            <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
-            <td align="center">Ввести в поле "Номер карты" 1111 2222 3333 4444</td>
-            <td rowspan=6 align="center"> В поле "Месяц" введутся два циферных символа и  появится сообщение "Операция одобрена Банком."</td>
-        </tr>
-        <tr>
+            <td align="center">14</td>
+            <td align="left">Оплата тура "Путешествие дня" с использованием трёх цифровых символов в поле "Месяц"</td>
+            <td align="center">Высокий</td>
+            <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
             <td align="center">Заполнить поле "Месяц" тремя цифровыми символами</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Год" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Владелец" валидным значением</td>
-        </tr>
-         <tr>
-            <td align="center">Заполнить поле "CVC/CVV" валидным значением</td>
-        </tr>
-          <tr>
-            <td align="center">Нажать на кнопку "Продолжить"</td>
-        </tr>
+            <td align="center"> В поле "Месяц" введутся два цифровых символа"</td>
            <tr>
             <td rowspan=6 align="center">15</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с введением в поле"Месяц" значения 13 </td>
@@ -396,27 +380,12 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
          <tr>
-            <td rowspan=6 align="center">20</td>
-            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием трёх цифровых символов в поле "Год"</td>
-            <td rowspan=6 align="center">Высокий</td>
-            <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
-            <td align="center">Ввести в поле "Номер карты" 1111 2222 3333 4444</td>
-            <td rowspan=6 align="center"> В поле "Год" введутся два циферных символа и  появится сообщение "Операция одобрена Банком."</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Месяц" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Год" тремя цифровыми символами(первые два символа должны быть равны текущему году)</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Владелец" валидным значением</td>
-        </tr>
-         <tr>
-            <td align="center">Заполнить поле "CVC/CVV" валидным значением</td>
-        </tr>
-          <tr>
-            <td align="center">Нажать на кнопку "Продолжить"</td>
+            <td align="center">20</td>
+            <td align="left">Оплата тура "Путешествие дня" с использованием трёх цифровых символов в поле "Год"</td>
+            <td align="center">Высокий</td>
+            <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
+            <td align="center">Заполнить поле "Год" тремя цифровыми символами</td>
+            <td align="center"> В поле "Год" введутся два циферных символа"</td>
         </tr>
          <tr>
             <td rowspan=6 align="center">21</td>
@@ -502,9 +471,33 @@
         </tr>
           <tr>
             <td align="center">Нажать на кнопку "Продолжить"</td>
-        </tr> 
+        </tr>
         <tr>
             <td rowspan=6 align="center">26</td>
+            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с написанием в поле "Владелец" имени и фамилии латиницей через  символ "-"</td>
+            <td rowspan=6 align="center">Высокий</td>
+            <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
+            <td align="center">Ввести в поле "Номер карты" 1111 2222 3333 4444</td>
+            <td rowspan=6 align="center">Сообщение "Операция одобрена Банком."</td>
+        </tr>
+        <tr>
+            <td align="center">Заполнить поле "Месяц" валидным значением</td>
+        </tr>
+        <tr>
+            <td align="center">Заполнить поле "Год" валидным значением</td>
+        </tr>
+        <tr>
+            <td align="center">Заполнить поле "Владелец" имени и фамилии через символ "-"</td>
+        </tr>
+         <tr>
+            <td align="center">Заполнить поле "CVC/CVV" валидным значением</td>
+        </tr>
+          <tr>
+            <td align="center">Нажать на кнопку "Продолжить"</td>
+        </tr>
+        <tr>
+        <tr>
+            <td rowspan=6 align="center">27</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием одного буквенного символа в поле "Владелец"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -527,8 +520,8 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
         <tr>
-            <td rowspan=6 align="center">27</td>
-            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием двадцати одного буквенного символа в поле "Владелец"</td>
+            <td rowspan=6 align="center">28</td>
+            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием двадцати двух буквенных символов в поле "Владелец"</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
             <td align="center">Ввести в поле "Номер карты" 1111 2222 3333 4444</td>
@@ -541,7 +534,7 @@
             <td align="center">Заполнить поле "Год" валидным значением</td>
         </tr>
         <tr>
-            <td align="center">Заполнить поле "Владелец"  двадцать одним буквенным символом включая пробелы</td>
+            <td align="center">Заполнить поле "Владелец"  двадцатью одвумя буквенным символами включая пробелы</td>
         </tr>
          <tr>
             <td align="center">Заполнить поле "CVC/CVV" валидным значением</td>
@@ -550,7 +543,7 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
          <tr>
-            <td rowspan=6 align="center">28</td>
+            <td rowspan=6 align="center">29</td>
             <td rowspan=6 align="left">Оплата тура "Путешествие дня" с введением в поле "Владелец" только имени на латинице</td>
             <td rowspan=6 align="center">Высокий</td>
             <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
@@ -565,29 +558,6 @@
         </tr>
         <tr>
             <td align="center">Заполнить поле "Владелец" только именем на латинице</td>
-        </tr>
-         <tr>
-            <td align="center">Заполнить поле "CVC/CVV" валидным значением</td>
-        </tr>
-          <tr>
-            <td align="center">Нажать на кнопку "Продолжить"</td>
-        </tr>
-        <tr>
-            <td rowspan=6 align="center">29</td>
-            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с написанием в поле "Владелец" имени и фамилии латиницей через  символ "-"</td>
-            <td rowspan=6 align="center">Высокий</td>
-            <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
-            <td align="center">Ввести в поле "Номер карты" 1111 2222 3333 4444</td>
-            <td rowspan=6 align="center">Сообщение "Операция одобрена Банком."</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Месяц" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Год" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Владелец" имени и фамилии через символ "-"</td>
         </tr>
          <tr>
             <td align="center">Заполнить поле "CVC/CVV" валидным значением</td>
@@ -711,27 +681,12 @@
             <td align="center">Нажать на кнопку "Продолжить"</td>
         </tr>
          <tr>
-            <td rowspan=6 align="center">35</td>
-            <td rowspan=6 align="left">Оплата тура "Путешествие дня" с использованием четырёх цифровых символов в поле "CVC/CVV"</td>
-            <td rowspan=6 align="center">Высокий</td>
-            <td rowspan=6 align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
-            <td align="center">Ввести в поле "Номер карты" 1111 2222 3333 4444</td>
-            <td rowspan=6 align="center">В поле "CVC/CVV" введутся три цифровых символа и  появится сообщение "Операция одобрена Банком."</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Месяц" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Год" валидным значением</td>
-        </tr>
-        <tr>
-            <td align="center">Заполнить поле "Владелец" валидным значением</td>
-        </tr>
-         <tr>
+            <td align="center">35</td>
+            <td align="left">Оплата тура "Путешествие дня" с использованием четырёх  цифровых символов в поле "CVC/CVV"</td>
+            <td align="center">Высокий</td>
+            <td align="center">Запустить SUT и открыть страницу http://localhost:8080</td>
             <td align="center">Заполнить поле "CVC/CVV" четырьмя цифровыми символами</td>
-        </tr>
-          <tr>
-            <td align="center">Нажать на кнопку "Продолжить"</td>
+            <td align="center">В поле "CVC/CVV" введутся три цифровых символа "</td>
         </tr>
         <tr>
             <td align="center">36</td>

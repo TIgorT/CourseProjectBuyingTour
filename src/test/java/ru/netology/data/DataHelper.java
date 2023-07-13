@@ -5,7 +5,6 @@ import lombok.Value;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Locale;
 
 public class DataHelper {
@@ -16,6 +15,9 @@ public class DataHelper {
     }
 
     // Значения поля "Номер карты"
+    public static String getEmptyCardNumberField() {
+        return ("");
+    }
     public static String getApprovedCardNumber() {
         return ("1111 2222 3333 4444");
     }
@@ -76,12 +78,10 @@ public class DataHelper {
     }
 
     public static String generateAMonthUsingThreeNumericCharacters() {
-        return faker.numerify("###");
+        return ("117");
     }
-
-
-    public static String generateTheCurrentMonthUsingThreeNumericCharacters() {
-        return faker.numerify("");
+    public static String generateAMonthUsingThreeNumericCharactersForAssert() {
+        return ("11");
     }
 
     public static String generateAMonthUsingTheValueThirteen() {
@@ -106,15 +106,18 @@ public class DataHelper {
     }
 
     public static String generateTheYearUsingThreeNumericCharacters() {
-        return faker.numerify("###");
+        return ("237");
+    }
+    public static String generateTheYearUsingThreeNumericCharactersForAssert() {
+        return ("23");
     }
 
-    public static String generateLastYears(int year) {
-        return LocalDate.now().minusYears(year).format(DateTimeFormatter.ofPattern("YY"));
+    public static String generateLastYears() {
+        return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("YY"));
     }
 
-    public static String generateTheCurrentYearPlusSixYears(int year) {
-        return LocalDate.now().plusYears(year).format(DateTimeFormatter.ofPattern("YY"));
+    public static String generateTheCurrentYearPlusSixYears() {
+        return LocalDate.now().plusYears(6).format(DateTimeFormatter.ofPattern("YY"));
     }
 
     public static String generateTheCurrentYearUsingAlphabeticCharacters() {
@@ -134,25 +137,28 @@ public class DataHelper {
         return faker.letterify("?");
     }
 
-    public static String generateTwentyOneLetterCharactersIncludingSpaces() {
-        return faker.letterify("???????????? ???? ???");
+    public static String generateTwentyTwoLetterCharactersIncludingSpaces() {
+        return faker.letterify("???????????? ???? ????");
     }
-
     public static String generateValidHolderWithDoubleLastName() {
         return faker.name().firstName() + "-" + faker.name().firstName() + faker.name().lastName();
     }
 
+    public static String generateOnlyNamesInLatin() {
+        return faker.name().firstName();
+    }
+
     public static String generateDataFirstNameLastNameInCyrillic() {
         Faker fakerWithCyrillicLocale = new Faker(new Locale("ru"));
-        return fakerWithCyrillicLocale.name().firstName() + fakerWithCyrillicLocale.name().lastName();
+        return fakerWithCyrillicLocale.name().firstName() + " " + fakerWithCyrillicLocale.name().lastName();
     }
 
     public static String generateDataFirstNameLastNameInLatinUsingTheSameSpecialCharacters() {
-        return faker.name().firstName() + "" + faker.name().lastName() + "%?*!";
+        return faker.name().firstName() + " " + faker.name().lastName() + "%?*!";
     }
 
     public static String generateDataFirstNameLastNameInLatinUsingTheSameNumbersCharacters() {
-        return faker.name().firstName() + "" + faker.name().lastName() + "1234";
+        return faker.name().firstName() + " " + faker.name().lastName() + "1234";
     }
 
     // Поле CVC / CVV
@@ -166,7 +172,10 @@ public class DataHelper {
     }
 
     public static String generateTheCVCCVVUsingFourNumericCharacters() {
-        return faker.numerify("####");
+        return ("2375");
+    }
+    public static String generateTheCVCCVVUsingFourNumericCharactersForAssert() {
+        return ("237");
     }
 
     public static String generateTheCVCCVVUsingAlphabeticCharacters() {
@@ -194,5 +203,10 @@ public class DataHelper {
     public static CardInfo getValidDeclinedCard() {
         return new CardInfo(getDeclinedCardNumber(), generateTheCurrentMonth(), generateTheCurrentYear(), generateValidDataFirstNameLastNameInLatin(), generateTheCVCCVVUsingThreeNumericCharacters());
     }
+    public static CardInfo bodyWithAnEmptyCardNumberField(){
+        return new CardInfo(getEmptyCardNumberField(),generateTheCurrentMonth(), generateTheCurrentYear(), generateValidDataFirstNameLastNameInLatin(), generateTheCVCCVVUsingThreeNumericCharacters());
+
+    }
+
 
 }
