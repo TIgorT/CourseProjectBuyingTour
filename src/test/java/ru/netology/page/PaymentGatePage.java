@@ -68,14 +68,14 @@ public class PaymentGatePage {
 
     public void clickOnTheContinueButton(String expectedTextFirst, String expectedTextSecond) {
         buttonContinue.click();
-        operationIsSuccessful.shouldHave(exactText(expectedTextFirst)).shouldBe(visible, Duration.ofMillis(18000));
-        operationIsApprovedByTheBank.shouldHave(exactText(expectedTextSecond)).shouldBe(visible, Duration.ofMillis(20000));
+        operationIsSuccessful.shouldHave(exactText(expectedTextFirst),Duration.ofMillis(14000)).shouldBe(visible, Duration.ofMillis(15000));
+        operationIsApprovedByTheBank.shouldHave(exactText(expectedTextSecond),Duration.ofMillis(14000)).shouldBe(visible, Duration.ofMillis(15000));
     }
 
     public void clickOnTheContinueButtonWithTheErrorInformation(String expectedTextFirst, String expectedTextSecond) {
         buttonContinue.click();
-        operationWentWrong.shouldHave(exactText(expectedTextFirst)).shouldBe(visible, Duration.ofMillis(18000));
-        operationWentWrongInTheBank.shouldHave(exactText(expectedTextSecond)).shouldBe(visible, Duration.ofMillis(20000));
+        operationWentWrong.shouldHave(exactText(expectedTextFirst),Duration.ofMillis(14000)).shouldBe(visible, Duration.ofMillis(18000));
+        operationWentWrongInTheBank.shouldHave(exactText(expectedTextSecond),Duration.ofMillis(14000)).shouldBe(visible, Duration.ofMillis(20000));
     }
 
     public String theNumberOfDigitsInTheCardNumberField() {
