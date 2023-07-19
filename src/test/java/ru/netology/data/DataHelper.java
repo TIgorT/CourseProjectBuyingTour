@@ -14,6 +14,11 @@ public class DataHelper {
 
     }
 
+    public static int tourAmount() {
+        int  amount = 45_000;
+        return amount;
+    }
+
     // Значения поля "Номер карты"
     public static String getEmptyCardNumberField() {
         return ("");
@@ -39,20 +44,30 @@ public class DataHelper {
     }
 
     public static String randomEighteenNumericCharacters() {
-        return ("1234 4897 8541 7359 78");
+        return faker.numerify("######## ##########");
+    }
+    public static int eighteenNumericCharactersForAssert() {
+      int  number = 18;
+        return number;
     }
 
+
     public static String randomNineteenNumericCharacters() {
-        return ("1234 4897 8541 7359 764");
+        return faker.numerify("######### ##########");
+    }
+    public static int nineteenNumericCharactersForAssert() {
+        int  number = 19;
+        return number;
     }
 
     public static String randomTwentyNumericCharacters() {
 
-        return ("1234 4897 8541 7359 5371");
+        return faker.numerify("########## ##########");
     }
-    public static String randomTwentyNumericCharactersForAssert() {
+    public static int twentyNumericCharactersForAssert() {
 
-        return ("1234 4897 8541 7359 537");
+        int  number = 19;
+        return number;
     }
 
     public static String generateRandomOneNumericCharacters() {
@@ -62,12 +77,20 @@ public class DataHelper {
     public static String generateRandomAlphabeticCharacters() {
         return faker.letterify("???? ???? ???? ????");
     }
+    public static int emptyCardNumberFieldForTheAssert() {
+
+        int  number = 0;
+        return number;
+    }
 
     public static String generateRandomSpecialCharacters() {
         return ("%?*!");
     }
 
     // Значения поля "Месяц"
+    public static String getEmptyMonthField() {
+        return ("");
+    }
 
     public static String generateTheCurrentMonth() {
         return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
@@ -78,10 +101,11 @@ public class DataHelper {
     }
 
     public static String generateAMonthUsingThreeNumericCharacters() {
-        return ("117");
+        return faker.numerify("###");
     }
-    public static String generateAMonthUsingThreeNumericCharactersForAssert() {
-        return ("11");
+    public static int monthUsingThreeNumericCharactersForAssert() {
+        int  number = 2;
+        return number;
     }
 
     public static String generateAMonthUsingTheValueThirteen() {
@@ -91,12 +115,19 @@ public class DataHelper {
     public static String generateAMonthUsingAlphabeticCharacters() {
         return faker.letterify("??");
     }
+    public static int emptyMonthFieldForTheAssert() {
+        int  number = 0;
+        return number;
+    }
 
     public static String generateAMonthUsingSpecialSymbols() {
         return ("%?");
     }
 
     //Значения поля "Год"
+    public static String getEmptyYearField() {
+        return ("");
+    }
     public static String generateTheCurrentYear() {
         return LocalDate.now().format(DateTimeFormatter.ofPattern("YY"));
     }
@@ -106,10 +137,11 @@ public class DataHelper {
     }
 
     public static String generateTheYearUsingThreeNumericCharacters() {
-        return ("237");
+        return faker.numerify("###");
     }
-    public static String generateTheYearUsingThreeNumericCharactersForAssert() {
-        return ("23");
+    public static int theYearUsingThreeNumericCharactersForAssert() {
+        int  number = 2;
+        return number;
     }
 
     public static String generateLastYears() {
@@ -123,11 +155,19 @@ public class DataHelper {
     public static String generateTheCurrentYearUsingAlphabeticCharacters() {
         return faker.letterify("??");
     }
+    public static int emptyYearFieldForTheAssert() {
+        int  number = 0;
+        return number;
+    }
 
     public static String generateTheCurrentYearUsingSpecialSymbols() {
         return ("%?");
     }
+
     //Значения поля "Владелец"
+    public static String getEmptyOwnerField() {
+        return ("");
+    }
 
     public static String generateValidDataFirstNameLastNameInLatin() {
         return faker.name().firstName() + " " + faker.name().lastName();
@@ -162,6 +202,9 @@ public class DataHelper {
     }
 
     // Поле CVC / CVV
+    public static String getEmptyCVCCVVField() {
+        return ("");
+    }
 
     public static String generateTheCVCCVVUsingThreeNumericCharacters() {
         return faker.numerify("###");
@@ -172,12 +215,12 @@ public class DataHelper {
     }
 
     public static String generateTheCVCCVVUsingFourNumericCharacters() {
-        return ("2375");
+        return faker.numerify("####");
     }
-    public static String generateTheCVCCVVUsingFourNumericCharactersForAssert() {
-        return ("237");
+    public static int theCVCCVVUsingFourNumericCharactersForAssert() {
+        int  number = 3;
+        return number;
     }
-
     public static String generateTheCVCCVVUsingAlphabeticCharacters() {
         return faker.letterify("???");
     }
@@ -203,10 +246,4 @@ public class DataHelper {
     public static CardInfo getValidDeclinedCard() {
         return new CardInfo(getDeclinedCardNumber(), generateTheCurrentMonth(), generateTheCurrentYear(), generateValidDataFirstNameLastNameInLatin(), generateTheCVCCVVUsingThreeNumericCharacters());
     }
-    public static CardInfo bodyWithAnEmptyCardNumberField(){
-        return new CardInfo(getEmptyCardNumberField(),generateTheCurrentMonth(), generateTheCurrentYear(), generateValidDataFirstNameLastNameInLatin(), generateTheCVCCVVUsingThreeNumericCharacters());
-
-    }
-
-
 }

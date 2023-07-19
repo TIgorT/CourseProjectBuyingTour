@@ -24,12 +24,7 @@ public class SQLHelper {
         var connection = getConn();
         runner.execute(connection, "DELETE FROM order_entity");
         runner.execute(connection, "DELETE FROM payment_entity");
-    }
-
-    @SneakyThrows
-    public static void cleaningThePaymentEntity() {
-        var connection = getConn();
-        runner.execute(connection, "DELETE FROM payment_entity");
+        runner.execute(connection, "DELETE FROM credit_request_entity ");
     }
 
     @SneakyThrows
@@ -38,5 +33,21 @@ public class SQLHelper {
         var conn = getConn();
        String status = runner.query(conn, sqlQuery, new ScalarHandler<>());
        return status;
+    }
+
+    @SneakyThrows
+    public static String getStatusCreditPayments() {
+        var sqlQuery = "SELECT status FROM credit_request_entity cre  ORDER by created DESC LIMIT 1";
+        var conn = getConn();
+        String status = runner.query(conn, sqlQuery, new ScalarHandler<>());
+        return status;
+    }
+
+    @SneakyThrows
+    public static int getThePaymentAmount() {
+        var sqlQuery = "SELECT amount  FROM payment_entity ORDER by created DESC LIMIT 1";
+        var conn = getConn();
+        int status = runner.query(conn, sqlQuery, new ScalarHandler<>());
+        return status;
     }
 }

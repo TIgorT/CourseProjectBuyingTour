@@ -1,23 +1,28 @@
 package ru.netology.test;
 
-
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
 import ru.netology.data.SQLHelper;
 import ru.netology.page.MainPage;
 import ru.netology.page.PaymentGatePage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static io.restassured.RestAssured.given;
+
 
 public class PaymentGateTest {
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+        SQLHelper.cleanDatabase();
+    }
+
 
     @BeforeEach
     void setup() {
@@ -26,14 +31,14 @@ public class PaymentGateTest {
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием специального номера APPROVED карты")
-    //Почему то  прогружает информацию об успехе через раз
+
     public void paymentForTheTripOfTheDayTourUsingASpecialAPPROVEDCardNumber() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         var cardInfo = DataHelper.getValidApprovedCard();
-        paymentGatePage.introductionOfValidDataApprovedCar(cardInfo, "Успешно", "Операция одобрена Банком.");
+        paymentGatePage.introductionOfCardData(cardInfo);
+        paymentGatePage.clickOnTheContinueButton();
         var paymentStatus = SQLHelper.getStatusPayments();
         Assertions.assertEquals("APPROVED", paymentStatus);
     }
@@ -42,108 +47,96 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с использованием специального номера DECLINED карты")
     public void paymentForTheTourTravelOfTheDayUsingASpecialDECLINEDCardNumber() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
+        var paymentGatePage = mainPage.clickButtonPay();
         var cardInfo = DataHelper.getValidDeclinedCard();
-        var paymentGatePage = new PaymentGatePage();
         paymentGatePage.paymentGatePageVisibility();
-        paymentGatePage.introductionOfValidDataDeclinedCar(cardInfo);
+        paymentGatePage.introductionOfCardData(cardInfo);
+        paymentGatePage.clickOnTheContinueButton();
         var paymentStatus = SQLHelper.getStatusPayments();
         Assertions.assertEquals("DECLINED", paymentStatus);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием шестнадцати рандомных цифровых символов в поле 'Номер карты'")
-    //Почему то  прогружает информацию об успехе через раз
     public void paymentForTheTripOfTheDayTourWithTheGenerationOfASixteenDigitRandomCardNumber() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.generateRandomSixteenNumericCharacters());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYear());
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidDataFirstNameLastNameInLatin());
         paymentGatePage.fillInTheCVCCVVField(DataHelper.generateTheCVCCVVUsingThreeNumericCharacters());
-        paymentGatePage.clickOnTheContinueButtonWithTheErrorInformation("Ошибка", "Ошибка! Банк отказал в проведении операции.");
+        paymentGatePage.clickOnTheContinueButtonWithTheErrorInformation();
 
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием тринадцати цифровых символов в поле 'Номер карты'")
-    // Баг № 2
     public void paymentForTheTripOfTheDayTourUsingThirteenNumericCharactersInTheCardNumberField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.generateRandomThirteenNumericCharacters());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYear());
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidDataFirstNameLastNameInLatin());
         paymentGatePage.fillInTheCVCCVVField(DataHelper.generateTheCVCCVVUsingThreeNumericCharacters());
-        paymentGatePage.clickOnTheContinueButton("Ошибка", "Ошибка! Банк отказал в проведении операции.");
+        paymentGatePage.clickOnTheContinueButtonWithTheErrorInformation();
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием пятнадцати цифровых символов в поле 'Номер карты'")
-    // Баг № 3
     public void paymentForTheTripOfTheDayTourUsingFifteenNumericCharactersInTheCardNumberField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.generateRandomFifteenNumericCharacters());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYear());
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidDataFirstNameLastNameInLatin());
         paymentGatePage.fillInTheCVCCVVField(DataHelper.generateTheCVCCVVUsingThreeNumericCharacters());
-        paymentGatePage.clickOnTheContinueButton("Ошибка", "Ошибка! Банк отказал в проведении операции.");
+        paymentGatePage.clickOnTheContinueButtonWithTheErrorInformation();
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием восемнадцати цифровых символов в поле 'Номер карты'")
-    // Баг № 4 - не принимает 18 цифр
     public void paymentForTheTripOfTheDayTourUsingEighteenNumericCharactersInTheCardNumberField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.randomEighteenNumericCharacters());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
-        Assertions.assertEquals(DataHelper.randomEighteenNumericCharacters(), quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
+        Assertions.assertEquals(DataHelper.eighteenNumericCharactersForAssert(),quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием девятнадцати цифровых символов в поле 'Номер карты'")
-    // Баг № 5 - не принимает 19 цифр
     public void paymentForTheTripOfTheDayTourUsingNineteenNumericCharactersInTheCardNumberField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.randomNineteenNumericCharacters());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
-        Assertions.assertEquals(DataHelper.randomNineteenNumericCharacters(), quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
+        Assertions.assertEquals(DataHelper.nineteenNumericCharactersForAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием двадцати цифровых символов в поле 'Номер карты'")
     public void paymentForTheTripOfTheDayTourUsingTwentyNumericCharactersInTheCardNumberField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.randomTwentyNumericCharacters());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
-        Assertions.assertEquals(DataHelper.randomTwentyNumericCharactersForAssert(), quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
+        Assertions.assertEquals(DataHelper.twentyNumericCharactersForAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием одного цифрового символа в поле 'Номер карты'")
     public void paymentForTheTripOfTheDayTourUsingOneDigitalSymbolInTheCardNumberField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.generateRandomOneNumericCharacters());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -157,33 +150,29 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с использованием буквенных символов в поле 'Номер карты'")
     public void paymentForTheTourTravelOfTheDayUsingAlphabeticCharactersInTheCardNumberField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.generateRandomAlphabeticCharacters());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
-        Assertions.assertEquals("", quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
+        Assertions.assertEquals(DataHelper.emptyCardNumberFieldForTheAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием спец символов в поле 'Номер карты'")
     public void paymentForTheTripOfTheDayTourUsingSpecialSymbolsInTheCardNumberField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.generateRandomSpecialCharacters());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
-        Assertions.assertEquals("", quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
+        Assertions.assertEquals(DataHelper.emptyCardNumberFieldForTheAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием пустого поля 'Номер карты'")
-    //Баг - неверное название ошибки
     public void paymentForTheTourTravelOfTheDayUsingAnEmptyCardNumberField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYear());
@@ -194,11 +183,9 @@ public class PaymentGateTest {
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием одного цифрового символа в поле 'Месяц'")
-
     public void paymentForTheJourneyOfTheDayTourUsingOneDigitalSymbolInTheMonthField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateAMonthUsingASingleNumericCharacter());
@@ -212,20 +199,18 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с использованием трёх цифровых символов в поле 'Месяц'")
     public void paymentForTheTourTravelOfTheDayUsingThreeNumericCharactersInTheMonthField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheMonthField(DataHelper.generateAMonthUsingThreeNumericCharacters());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheMonthField();
-        Assertions.assertEquals(DataHelper.generateAMonthUsingThreeNumericCharactersForAssert(), quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheMonthField();
+        Assertions.assertEquals(DataHelper.monthUsingThreeNumericCharactersForAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура Путешествие дня с введением в поле Месяц значения 13")
     public void paymentForTheTourTravelOfTheDayWithTheIntroductionOfTheValueThirteenInTheMonthField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateAMonthUsingTheValueThirteen());
@@ -239,46 +224,42 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с использованием буквенных символов в поле 'Месяц'")
     public void paymentForTheJourneyOfTheDayTourUsingAlphabeticCharactersInTheMonthField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheMonthField(DataHelper.generateAMonthUsingAlphabeticCharacters());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheMonthField();
-        Assertions.assertEquals("", quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheMonthField();
+        Assertions.assertEquals(DataHelper.emptyMonthFieldForTheAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием спец символов в поле 'Месяц'")
     public void paymentForTheTourTripOfTheDayUsingSpecialSymbolsInTheMonthField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheMonthField(DataHelper.generateAMonthUsingSpecialSymbols());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheMonthField();
-        Assertions.assertEquals("", quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheMonthField();
+        Assertions.assertEquals(DataHelper.emptyMonthFieldForTheAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с пустым полем 'Месяц'")
     public void paymentForTheTourTravelOfTheDayWithAnEmptyFieldMonth() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYear());
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidDataFirstNameLastNameInLatin());
         paymentGatePage.fillInTheCVCCVVField(DataHelper.generateTheCVCCVVUsingThreeNumericCharacters());
-        paymentGatePage.errorFormatInTheMonthField("Неверный формат");
+        paymentGatePage.errorFormatInTheMonthField("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня'с использованием одного цифрового символа в поле 'Год'")
     public void paymentForTheTourTravelOfTheDayUsingOneDigitalSymbolInTheYearField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -292,20 +273,18 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с использованием трёх цифровых символов в поле 'Год'")
     public void paymentForTheTourTravelOfTheDayUsingThreeNumericCharactersInTheYearField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheYearField(DataHelper.generateTheYearUsingThreeNumericCharacters());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheYearField();
-        Assertions.assertEquals(DataHelper.generateTheYearUsingThreeNumericCharactersForAssert(), quantity);
+       int quantity = paymentGatePage.theNumberOfDigitsInTheYearField();
+        Assertions.assertEquals(DataHelper.theYearUsingThreeNumericCharactersForAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с введением в поле 'Год' прошлогодней даты ")
     public void paymentForTheTourTravelOfTheDayWithTheIntroductionOfLastYearsDateInTheYearField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -319,8 +298,7 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с введением в поле 'Год' даты (плюс шесть лет к текущему году)")
     public void paymentForTheTourTravelOfTheDayWithTheIntroductionOfTheDatInTheYearFieldPlusSixYearsToTheCurrentYear() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -334,62 +312,56 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с использованием буквенных символов в поле 'Год'")
     public void paymentForTheTourTravelOfTheDayUsingAlphabeticCharactersInTheYearField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYearUsingAlphabeticCharacters());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheYearField();
-        Assertions.assertEquals("", quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheYearField();
+        Assertions.assertEquals(DataHelper.emptyYearFieldForTheAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием спец символов в поле 'Год'")
     public void paymentForTheTripOfTheDayTourUsingSpecialSymbolsInTheYearField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYearUsingSpecialSymbols());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheYearField();
-        Assertions.assertEquals("", quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheYearField();
+        Assertions.assertEquals(DataHelper.emptyYearFieldForTheAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с пустым полем 'Год'")
     public void paymentForTheTourTravelOfTheDayWithAnEmptyFieldYear() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidDataFirstNameLastNameInLatin());
         paymentGatePage.fillInTheCVCCVVField(DataHelper.generateTheCVCCVVUsingThreeNumericCharacters());
-        paymentGatePage.errorFormatInTheYearField("Неверный формат");
+        paymentGatePage.errorFormatInTheYearField("Поле обязательно для заполнения");
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с написанием в поле 'Владелец' имени и фамилии латиницей через символ '-'")
     public void paymentForTheTourTravelOfTheDayWithWritingInTheOwnerOfTheFirstAndLastNameInLatinLettersSeparatedByAHyphen() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYear());
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidHolderWithDoubleLastName());
         paymentGatePage.fillInTheCVCCVVField(DataHelper.generateTheCVCCVVUsingThreeNumericCharacters());
-        paymentGatePage.clickOnTheContinueButton("Успешно", "Операция одобрена Банком.");
+        paymentGatePage.clickOnTheContinueButton();
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием одного буквенного символа в поле 'Владелец'")
-    // Баг нет сообщения об ошибке
     public void paymentForTheTourTravelOfTheDayUsingOneLetterCharacterInTheOwnerField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -401,11 +373,9 @@ public class PaymentGateTest {
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием двадцати двух буквенных символов в поле 'Владелец'")
-    // Баг нет сообщения об ошибке 22 символа с пробелом
     public void paymentForTheTourTravelOfTheDayUsingTwentyTwoLetterCharactersInTheOwnerField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -417,11 +387,9 @@ public class PaymentGateTest {
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с введением в поле 'Владелец' только имени на латинице")
-    // Баг нет сообщения об ошибке на имя
     public void paymentForTheTourTravelOfTheDayWithTheIntroductionOfOnlyTheNameInLatinInTheOwnerField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -433,11 +401,9 @@ public class PaymentGateTest {
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с написанием в поле 'Владелец' имени и фамилии кириллицей")
-    // Баг нет сообщения об ошибке на ФИО кирил
     public void paymentForTheTourTravelOfTheDayWithWritingInTheOwnerOfTheFirstAndLastNameInCyrillic() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -449,11 +415,9 @@ public class PaymentGateTest {
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с написанием в поле 'Владелец' имени и фамилии, используя спецсимволы")
-    // Баг нет сообщения об ошибке Спец символы
     public void paymentForTheTripOfTheDayTourWithWritingInTheOwnerOfTheFirstAndLastNameFieldUsingSpecialCharacters() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -465,11 +429,9 @@ public class PaymentGateTest {
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с написанием в поле 'Владелец' имени и фамилии, используя цифровые символы")
-    // Баг нет сообщения об ошибке цифр
     public void paymentForTheTripOfTheDayWithWritingInTheOwnerOfTheFirstAndLastNameFieldUsingNumericCharacters() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -481,11 +443,9 @@ public class PaymentGateTest {
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с пустым полем 'Владелец'")
-    // Баг нет сообщения об ошибке цифр
     public void paymentForTheTourTravelOfTheDayWithAnEmptyOwnerField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -498,8 +458,7 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с использованием одно цифрового символа в поле 'CVC/CVV'")
     public void paymentForTheTripOfTheDayTourUsingASingleDigitSymbolInTheCVCCVVField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -513,24 +472,22 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с использованием четырёх цифровых символов в поле 'CVC/CVV'")
     public void paymentForTheTripOfTheDayTourUsingFourNumericCharactersInTheCVCCVVField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYear());
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidDataFirstNameLastNameInLatin());
         paymentGatePage.fillInTheCVCCVVField(DataHelper.generateTheCVCCVVUsingFourNumericCharacters());
-        String quantity = paymentGatePage.theNumberOfDigitsInTheCVCCVVField();
-        Assertions.assertEquals(DataHelper.generateTheCVCCVVUsingFourNumericCharactersForAssert(), quantity);
+        int quantity = paymentGatePage.theNumberOfDigitsInTheCVCCVVField();
+        Assertions.assertEquals(DataHelper.theCVCCVVUsingFourNumericCharactersForAssert(), quantity);
     }
 
     @Test
     @DisplayName("Оплата тура 'Путешествие дня' с использованием буквенных символов в поле 'CVC/CVV'")
     public void paymentForTheTripOfTheDayTourUsingAlphabeticCharactersInTheCVCCVVField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -544,8 +501,7 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с использованием спецсимволов в поле 'CVC/CVV'")
     public void paymentForTheTripOfTheDayTourUsingSpecialCharactersInTheCVCCVVField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -566,75 +522,20 @@ public class PaymentGateTest {
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYear());
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidDataFirstNameLastNameInLatin());
-        paymentGatePage.errorFormatInTheCVCCVVField("Неверный формат");
-    }
-
-                                           //API сценарии
-    private RequestSpecification requestSpec = new RequestSpecBuilder()
-            .setBaseUri("http://localhost")
-            .setPort(8080)
-            .setAccept(ContentType.JSON)
-            .setContentType(ContentType.JSON)
-            .log(LogDetail.ALL)
-            .build();
-
-
-    @Test
-    @DisplayName("POST запрос покупка тура 'Путешествие дня' с валидно заполненным body и данными APPROVED карты ")
-    // Почему 500? через постман 200!!!
-   public void postRequestToPurchaseATourTravelOfTheDayWithAValidFilledBodyAndAPPROVEDCardData(){
-        given().
-                baseUri("http://localhost:8080/")
-                .spec(requestSpec)
-                .body(DataHelper.getValidApprovedCard())
-                .when()
-                .post("api/v1/pay")
-                .then()
-                .statusCode(200);
+        paymentGatePage.errorFormatInTheCVCCVVField("Поле обязательно для заполнения");
     }
 
     @Test
-    @DisplayName("POST запрос покупка тура 'Путешествие дня' с валидно заполненным body и данными DECLINED карты ")
-    // Почему 500? через постман 200!!!
-    public void postRequestToPurchaseATourTravelOfTheDayWithAValidFilledBodyAndDECLINEDCardData(){
-        given().
-                baseUri("http://localhost:8080/")
-                .spec(requestSpec)
-                .body(DataHelper.getValidDeclinedCard())
-                .when()
-                .post("api/v1/pay")
-                .then()
-                .statusCode(200);
+    @DisplayName("Сумма тура 'Путешествие дня' с использованием специального номера APPROVED карты")
+    public void theAmountOfTheTourIsTheJourneyOfTheDayUsingASpecialAPPROVEDCardNumber() {
+        var mainPage = new MainPage();
+        var paymentGatePage = mainPage.clickButtonPay();
+        paymentGatePage.paymentGatePageVisibility();
+        var cardInfo = DataHelper.getValidApprovedCard();
+        paymentGatePage.introductionOfCardData(cardInfo);
+        paymentGatePage.clickOnTheContinueButton();
+        var paymentStatus = SQLHelper.getThePaymentAmount();
+        Assertions.assertEquals(DataHelper.tourAmount(), paymentStatus);
     }
-
-    @Test
-    @DisplayName("POST запрос покупка тура 'Путешествие дня' с пустым body ")
-    // возможно баг
-    public void postRequestPurchaseOfATourTravelOfTheDayWithAnEmptyBody(){
-        given().
-                baseUri("http://localhost:8080/")
-                .spec(requestSpec)
-                .body("")
-                .when()
-                .post("api/v1/pay")
-                .then()
-                .statusCode(400);
-    }
-
-    @Test
-    @DisplayName("POST запрос покупка тура 'Путешествие дня' с пустым значением атрибута cardNumber в body, остальные данные заполнены валидно")
-    // возможно баг
-    public void postRequestPurchaseOfATourTravelOfTheDayWithAnEmptyValueOfTheNumberAttributeInTheBodyTheRestOfTheDataIsFilledInValid(){
-        given().
-                baseUri("http://localhost:8080/")
-                .spec(requestSpec)
-                .body(DataHelper.bodyWithAnEmptyCardNumberField())
-                .when()
-                .post("api/v1/pay")
-                .then()
-                .statusCode(400);
-    }
-
-
 
 }

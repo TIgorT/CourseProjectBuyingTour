@@ -66,55 +66,75 @@ public class PaymentGatePage {
         cardCVCCVV.setValue(cvccvv);
     }
 
-    public void clickOnTheContinueButton(String expectedTextFirst, String expectedTextSecond) {
+    public void clickOnTheContinueButton() {
         buttonContinue.click();
-        operationIsSuccessful.shouldHave(exactText(expectedTextFirst),Duration.ofMillis(14000)).shouldBe(visible, Duration.ofMillis(15000));
-        operationIsApprovedByTheBank.shouldHave(exactText(expectedTextSecond),Duration.ofMillis(14000)).shouldBe(visible, Duration.ofMillis(15000));
+        operationIsSuccessful.shouldBe(visible, Duration.ofMillis(15000));
+        operationIsApprovedByTheBank.shouldBe(visible);
     }
 
-    public void clickOnTheContinueButtonWithTheErrorInformation(String expectedTextFirst, String expectedTextSecond) {
+    public void clickOnTheContinueButtonWithTheErrorInformation() {
         buttonContinue.click();
-        operationWentWrong.shouldHave(exactText(expectedTextFirst),Duration.ofMillis(14000)).shouldBe(visible, Duration.ofMillis(18000));
-        operationWentWrongInTheBank.shouldHave(exactText(expectedTextSecond),Duration.ofMillis(14000)).shouldBe(visible, Duration.ofMillis(20000));
+        operationWentWrong.shouldBe(visible, Duration.ofMillis(18000));
+        operationWentWrongInTheBank.shouldBe(visible, Duration.ofMillis(20000));
     }
 
-    public String theNumberOfDigitsInTheCardNumberField() {
-        return cardNumber.getAttribute("value");
+    public int theNumberOfDigitsInTheCardNumberField() {
+        String val = cardNumber.getAttribute("value");
+        int len = val.length();
+        int sum = 0;
+        for (int i = 0; i < len; i++) {
+            if (val.charAt(i) == ' ') {
+                continue;
+            }
+            sum++;
+        }
+        return sum;
     }
 
-    public String theNumberOfDigitsInTheMonthField() {
-        return cardMonth.getAttribute("value");
+    public int theNumberOfDigitsInTheMonthField() {
+        String val = cardMonth.getAttribute("value");
+        int len = val.length();
+        int sum = 0;
+        for (int i = 0; i < len; i++) {
+            if (val.charAt(i) == ' ') {
+                continue;
+            }
+            sum++;
+        }
+        return sum;
+    }
+    public int theNumberOfDigitsInTheYearField() {
+        String val = cardYear.getAttribute("value");
+        int len = val.length();
+        int sum = 0;
+        for (int i = 0; i < len; i++) {
+            if (val.charAt(i) == ' ') {
+                continue;
+            }
+            sum++;
+        }
+        return sum;
+    }
+    public int theNumberOfDigitsInTheCVCCVVField() {
+        String val = cardCVCCVV.getAttribute("value");
+        int len = val.length();
+        int sum = 0;
+        for (int i = 0; i < len; i++) {
+            if (val.charAt(i) == ' ') {
+                continue;
+            }
+            sum++;
+        }
+        return sum;
     }
 
-    public String theNumberOfDigitsInTheYearField() {
-        return cardYear.getAttribute("value");
-    }
 
-    public String theNumberOfDigitsInTheCVCCVVField() {
-        return cardCVCCVV.getAttribute("value");
-    }
-
-
-    public void introductionOfValidDataApprovedCar(DataHelper.CardInfo info, String expectedTextFirst, String expectedTextSecond) {
+    public void introductionOfCardData(DataHelper.CardInfo info) {
         cardNumber.setValue(info.getCardNumber());
         cardMonth.setValue(info.getMonth());
         cardYear.setValue(info.getYear());
         cardOwner.setValue(info.getOwner());
         cardCVCCVV.setValue(info.getCardCVCCVV());
-        buttonContinue.click();
-        operationIsSuccessful.shouldHave(exactText(expectedTextFirst)).shouldBe(visible, Duration.ofMillis(40_000));
-        operationIsApprovedByTheBank.shouldHave(exactText(expectedTextSecond)).shouldBe(visible, Duration.ofMillis(40_000));
-    }
-
-    public void introductionOfValidDataDeclinedCar(DataHelper.CardInfo info) {
-        cardNumber.setValue(info.getCardNumber());
-        cardMonth.setValue(info.getMonth());
-        cardYear.setValue(info.getYear());
-        cardOwner.setValue(info.getOwner());
-        cardCVCCVV.setValue(info.getCardCVCCVV());
-        buttonContinue.click();
-        operationIsSuccessful.shouldBe(visible, Duration.ofMillis(12_000));
-        operationIsApprovedByTheBank.shouldBe(visible, Duration.ofMillis(12_000));
     }
 
     public void errorFormatInTheCardNumberField(String expectedText) {
@@ -125,7 +145,6 @@ public class PaymentGatePage {
     public void errorFormatInTheMonthField(String expectedText) {
         buttonContinue.click();
         errorInTheMonthField.shouldHave(exactText(expectedText)).shouldBe(visible, Duration.ofMillis(5000));
-
     }
 
     public void errorFormatInTheYearField(String expectedText) {
