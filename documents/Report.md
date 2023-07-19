@@ -14,7 +14,7 @@
 ## Количество тест-кейсов
 - Всего было проведено 49 автотестов.
 ## Процент успешных и не успешных тест-кейсов
-![Allure Report](https://github.com/TIgorT/CourseProjectBuyingTour/blob/main/documents/Allure Report .png)
+![Allure Report](https://github.com/TIgorT/CourseProjectBuyingTour/blob/main/documents/AllureReport.png)
 
 - Общий процент успешных тестов равен 57.14%.
 - Общий процент неуспешных тестов равен 42.86%.
