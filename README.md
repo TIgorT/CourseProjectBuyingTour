@@ -4,8 +4,8 @@
 
 1. [Текст задания](https://github.com/netology-code/aqa-qamid-diplom)
 2. [План автоматизации](https://github.com/TIgorT/CourseProjectBuyingTour/blob/main/documents/Plan.md)
-3. [Отчёт о проведенном тестировании]()
-4. [Отчет о проведённой автоматизации тестирования]()
+3. [Отчёт о проведенном тестировании](https://github.com/TIgorT/CourseProjectBuyingTour/blob/main/documents/Report.md)
+4. [Отчет о проведённой автоматизации тестирования](https://github.com/TIgorT/CourseProjectBuyingTour/blob/main/documents/Summary.md)
 
 ## **Инструкция для запуска автотестов**
 1. Клонировать проект:
