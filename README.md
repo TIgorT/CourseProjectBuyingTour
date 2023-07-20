@@ -8,15 +8,44 @@
 4. [Отчет о проведённой автоматизации тестирования](https://github.com/TIgorT/CourseProjectBuyingTour/blob/main/documents/Summary.md)
 
 ## **Инструкция для запуска автотестов**
-1. Клонировать проект:
+1. Клонировать [проект](https://github.com/TIgorT/CourseProjectBuyingTour)
 2. Открыть проект в IntelliJ IDEA
 3. Запустить Docker Desktop
-4. Запустить в терменале контейнеры командой docker-compose up
-5. Запустить в новом окне терминала jar файл командой java -jar ./artifacts/aqa-shop.jar
-6. Проверить доступность приложения в браузере по ссылке http://localhost:8080/.
-7. Запустить тесты командой ./gradlew clean test.
-8. Запустить в новом окне терминала Allure для создания отчёта командой ./gradlew allureServe
-9. Остановить Allure комбинацией клавиш Ctrl+C.
-10. Остановить в терминале jar файл  комбинацией клавиш Ctrl+C.
-11. Остановить в термиле работу контейнеров командой комбинацией клавиш Ctrl+C.
-12. В термиле с Docker запустить командой docker-compose down.
+
+### Подключение SUT к MySQL
+1. В терминале 1 в корне проекта запустить контейнеры:`docker-compose up`
+2. В терминале 2 запустить приложение: `java -jar .\artifacts\aqa-shop.jar --spring.datasource.url=jdbc:mysql://localhost:3306/app`
+3. Проверить доступность приложения в браузере по ссылке http://localhost:8080/
+4. Открыть файл SQLHelper.java (.\src\test\java\ru\netology\data\SQLHelper.java)
+5. Раскомментировать для  MySQL
+6. Закомментировать для PostgreSQL
+7. В терминале 3 запустить тесты командой  `./gradlew clean test --info`
+8. В терминале 3 запустить Allure для создания отчёта командой `./gradlew allureserve`
+9. Закрыть отчёт в терминаме 3: `CTRL + C --> Y --> Enter`
+10. Остановить aqa-shop.jar в терминале 2: `CTRL + C`
+11. Остановить контейнеры в терминале 1: `CTRL + C`
+12. Выполнить команду в терминале 1: `docker-compose down`
+
+### Подключение SUT к PostgreSQL
+1. В терминале 1 в корне проекта запустить контейнеры:`docker-compose up`
+2. В терминале 2 запустить приложение: `java -jar .\artifacts\aqa-shop.jar --spring.datasource.url=jdbc:postgresql://localhost:5432/app`
+3. Проверить доступность приложения в браузере по ссылке http://localhost:8080/
+4. Открыть файл SQLHelper.java (.\src\test\java\ru\netology\data\SQLHelper.java)
+5. Раскомментировать для PostgreSQL
+6. Закомментировать для  MySQL
+7. В терминале 3 запустить тесты командой  `./gradlew clean test --info`
+8. В терминале 3 запустить Allure для создания отчёта командой `./gradlew allureserve`
+9. Закрыть отчёт в терминаме 3: `CTRL + C --> Y --> Enter`
+10. Остановить aqa-shop.jar в терминале 2: `CTRL + C`
+11. Остановить контейнеры в терминале 1: `CTRL + C`
+12. Выполнить команду в терминале 1: `docker-compose down`
+
+
+
+
+
+
+
+
+
+

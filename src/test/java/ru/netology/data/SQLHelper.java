@@ -15,9 +15,14 @@ public class SQLHelper {
 
     }
 
-    private static Connection getConn() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
-    }
+    private static Connection getConn() throws SQLException {  // Для  MySQL
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");  // Для  MySQL
+    }  // Для  MySQL
+
+
+//    private static Connection getConn() throws SQLException { // Для PostgreSQL
+//        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/app", "app", "pass"); // Для PostgreSQL
+//    }// Для PostgreSQL
 
     @SneakyThrows
     public static void cleanDatabase() {
