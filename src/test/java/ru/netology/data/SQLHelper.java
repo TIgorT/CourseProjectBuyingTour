@@ -8,21 +8,27 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 public class SQLHelper {
     private static QueryRunner runner = new QueryRunner();
 
     private SQLHelper() {
 
     }
+//
+//        private static Connection getConn() throws SQLException {  // Для  MySQL
+//        return DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");  // Для  MySQL
+//    }  // Для  MySQL
 
-    private static Connection getConn() throws SQLException {  // Для  MySQL
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");  // Для  MySQL
-    }  // Для  MySQL
-
-
-//    private static Connection getConn() throws SQLException { // Для PostgreSQL
+    //    private static Connection getConn() throws SQLException { // Для PostgreSQL
 //        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/app", "app", "pass"); // Для PostgreSQL
 //    }// Для PostgreSQL
+
+    @SneakyThrows
+    private static Connection getConn() {
+        return DriverManager.getConnection(System.getProperty("dbUrl"), "app", "pass");
+    }
+
 
     @SneakyThrows
     public static void cleanDatabase() {
@@ -36,8 +42,8 @@ public class SQLHelper {
     public static String getStatusPayments() {
         var sqlQuery = "SELECT status FROM payment_entity ORDER by created DESC LIMIT 1";
         var conn = getConn();
-       String status = runner.query(conn, sqlQuery, new ScalarHandler<>());
-       return status;
+        String status = runner.query(conn, sqlQuery, new ScalarHandler<>());
+        return status;
     }
 
     @SneakyThrows
@@ -55,4 +61,5 @@ public class SQLHelper {
         int status = runner.query(conn, sqlQuery, new ScalarHandler<>());
         return status;
     }
+
 }

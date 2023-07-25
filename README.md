@@ -19,7 +19,7 @@
 4. Открыть файл SQLHelper.java (.\src\test\java\ru\netology\data\SQLHelper.java)
 5. Раскомментировать для  MySQL
 6. Закомментировать для PostgreSQL
-7. В терминале 3 запустить тесты командой  `./gradlew clean test --info`
+7. В терминале 3 запустить тесты командой  `.\gradlew clean test -DdbUrl=jdbc:mysql://localhost:3306/app`
 8. В терминале 3 запустить Allure для создания отчёта командой `./gradlew allureserve`
 9. Закрыть отчёт в терминаме 3: `CTRL + C --> Y --> Enter`
 10. Остановить aqa-shop.jar в терминале 2: `CTRL + C`
@@ -33,7 +33,7 @@
 4. Открыть файл SQLHelper.java (.\src\test\java\ru\netology\data\SQLHelper.java)
 5. Раскомментировать для PostgreSQL
 6. Закомментировать для  MySQL
-7. В терминале 3 запустить тесты командой  `./gradlew clean test --info`
+7. В терминале 3 запустить тесты командой  `.\gradlew clean test -DdbUrl=jdbc:postgresql://localhost:5432/app`
 8. В терминале 3 запустить Allure для создания отчёта командой `./gradlew allureserve`
 9. Закрыть отчёт в терминаме 3: `CTRL + C --> Y --> Enter`
 10. Остановить aqa-shop.jar в терминале 2: `CTRL + C`

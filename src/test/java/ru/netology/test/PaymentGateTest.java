@@ -23,7 +23,6 @@ public class PaymentGateTest {
         SQLHelper.cleanDatabase();
     }
 
-
     @BeforeEach
     void setup() {
         open("http://localhost:8080");
