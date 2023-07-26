@@ -15,7 +15,7 @@ public class DataHelper {
     }
 
     public static int tourAmount() {
-        int  amount = 45_000;
+        int amount = 45_000 * 100; // переводим в копейки
         return amount;
     }
 
@@ -23,6 +23,7 @@ public class DataHelper {
     public static String getEmptyCardNumberField() {
         return ("");
     }
+
     public static String getApprovedCardNumber() {
         return ("1111 2222 3333 4444");
     }
@@ -31,6 +32,7 @@ public class DataHelper {
 
         return ("5555 6666 7777 8888");
     }
+
     public static String generateRandomSixteenNumericCharacters() {
         return faker.numerify("#### #### #### ####");
     }
@@ -46,28 +48,14 @@ public class DataHelper {
     public static String randomEighteenNumericCharacters() {
         return faker.numerify("######## ##########");
     }
-    public static int eighteenNumericCharactersForAssert() {
-      int  number = 18;
-        return number;
-    }
-
 
     public static String randomNineteenNumericCharacters() {
         return faker.numerify("######### ##########");
-    }
-    public static int nineteenNumericCharactersForAssert() {
-        int  number = 19;
-        return number;
     }
 
     public static String randomTwentyNumericCharacters() {
 
         return faker.numerify("########## ##########");
-    }
-    public static int twentyNumericCharactersForAssert() {
-
-        int  number = 19;
-        return number;
     }
 
     public static String generateRandomOneNumericCharacters() {
@@ -76,11 +64,6 @@ public class DataHelper {
 
     public static String generateRandomAlphabeticCharacters() {
         return faker.letterify("???? ???? ???? ????");
-    }
-    public static int emptyCardNumberFieldForTheAssert() {
-
-        int  number = 0;
-        return number;
     }
 
     public static String generateRandomSpecialCharacters() {
@@ -103,8 +86,9 @@ public class DataHelper {
     public static String generateAMonthUsingThreeNumericCharacters() {
         return faker.numerify("###");
     }
+
     public static int monthUsingThreeNumericCharactersForAssert() {
-        int  number = 2;
+        int number = 2;
         return number;
     }
 
@@ -115,8 +99,9 @@ public class DataHelper {
     public static String generateAMonthUsingAlphabeticCharacters() {
         return faker.letterify("??");
     }
+
     public static int emptyMonthFieldForTheAssert() {
-        int  number = 0;
+        int number = 0;
         return number;
     }
 
@@ -128,6 +113,7 @@ public class DataHelper {
     public static String getEmptyYearField() {
         return ("");
     }
+
     public static String generateTheCurrentYear() {
         return LocalDate.now().format(DateTimeFormatter.ofPattern("YY"));
     }
@@ -139,8 +125,9 @@ public class DataHelper {
     public static String generateTheYearUsingThreeNumericCharacters() {
         return faker.numerify("###");
     }
+
     public static int theYearUsingThreeNumericCharactersForAssert() {
-        int  number = 2;
+        int number = 2;
         return number;
     }
 
@@ -155,8 +142,9 @@ public class DataHelper {
     public static String generateTheCurrentYearUsingAlphabeticCharacters() {
         return faker.letterify("??");
     }
+
     public static int emptyYearFieldForTheAssert() {
-        int  number = 0;
+        int number = 0;
         return number;
     }
 
@@ -180,6 +168,7 @@ public class DataHelper {
     public static String generateTwentyTwoLetterCharactersIncludingSpaces() {
         return faker.letterify("???????????? ???? ????");
     }
+
     public static String generateValidHolderWithDoubleLastName() {
         return faker.name().firstName() + "-" + faker.name().firstName() + faker.name().lastName();
     }
@@ -217,10 +206,12 @@ public class DataHelper {
     public static String generateTheCVCCVVUsingFourNumericCharacters() {
         return faker.numerify("####");
     }
+
     public static int theCVCCVVUsingFourNumericCharactersForAssert() {
-        int  number = 3;
+        int number = 3;
         return number;
     }
+
     public static String generateTheCVCCVVUsingAlphabeticCharacters() {
         return faker.letterify("???");
     }

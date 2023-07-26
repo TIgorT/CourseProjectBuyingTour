@@ -1,12 +1,18 @@
 package ru.netology.data;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.List;
 
 
 public class SQLHelper {
@@ -15,14 +21,6 @@ public class SQLHelper {
     private SQLHelper() {
 
     }
-//
-//        private static Connection getConn() throws SQLException {  // Для  MySQL
-//        return DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");  // Для  MySQL
-//    }  // Для  MySQL
-
-    //    private static Connection getConn() throws SQLException { // Для PostgreSQL
-//        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/app", "app", "pass"); // Для PostgreSQL
-//    }// Для PostgreSQL
 
     @SneakyThrows
     private static Connection getConn() {
@@ -60,6 +58,25 @@ public class SQLHelper {
         var conn = getConn();
         int status = runner.query(conn, sqlQuery, new ScalarHandler<>());
         return status;
+    }
+
+    @SneakyThrows
+    public static List<PaymentEntity> getQuantityInTheDatabase() {
+        var sqlQuery = "SELECT * FROM payment_entity ORDER by created DESC";
+        var conn = getConn();
+        var status = runner.query(conn, sqlQuery, new BeanListHandler<>(PaymentEntity.class));
+        return status;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PaymentEntity {
+        private String id;
+        private int amount;
+        private Timestamp created;
+        private String status;
+        private String transaction_id;
     }
 
 }

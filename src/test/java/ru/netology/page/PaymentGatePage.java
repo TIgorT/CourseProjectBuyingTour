@@ -6,15 +6,13 @@ import ru.netology.data.DataHelper;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PaymentGatePage {
-
-    private final SelenideElement nameOfThePaymentType = $x("//h3[@class='heading heading_size_m heading_theme_alfa-on-white']");
-    private final SelenideElement tourJourneyOfTheDay = $x("//h2[@class='heading heading_size_l heading_theme_alfa-on-white']");
+    private final SelenideElement nameOfThePaymentType = $x("//h3[contains(text(),'Оплата по карте')]");
+    private final SelenideElement tourJourneyOfTheDay = $x("//h2[contains(text(),'Путешествие дня')]");
     private final SelenideElement cardNumber = $("[placeholder='0000 0000 0000 0000']");
 
     private final SelenideElement cardMonth = $("[placeholder='08']");
@@ -78,54 +76,25 @@ public class PaymentGatePage {
         operationWentWrongInTheBank.shouldBe(visible, Duration.ofMillis(20000));
     }
 
-    public int theNumberOfDigitsInTheCardNumberField() {
-        String val = cardNumber.getAttribute("value");
-        int len = val.length();
-        int sum = 0;
-        for (int i = 0; i < len; i++) {
-            if (val.charAt(i) == ' ') {
-                continue;
-            }
-            sum++;
-        }
-        return sum;
+    public void checkCardNumberFieldValue(String expectedNumber) {
+
+        cardNumber.shouldHave(attribute("value", expectedNumber));
+
     }
 
-    public int theNumberOfDigitsInTheMonthField() {
-        String val = cardMonth.getAttribute("value");
-        int len = val.length();
-        int sum = 0;
-        for (int i = 0; i < len; i++) {
-            if (val.charAt(i) == ' ') {
-                continue;
-            }
-            sum++;
-        }
-        return sum;
+    public int checkMonthFieldValue() {
+        int val = cardMonth.getAttribute("value").length();
+        return val;
     }
-    public int theNumberOfDigitsInTheYearField() {
-        String val = cardYear.getAttribute("value");
-        int len = val.length();
-        int sum = 0;
-        for (int i = 0; i < len; i++) {
-            if (val.charAt(i) == ' ') {
-                continue;
-            }
-            sum++;
-        }
-        return sum;
+
+    public int checkYearFieldValue() {
+        int val = cardYear.getAttribute("value").length();
+        return val;
     }
-    public int theNumberOfDigitsInTheCVCCVVField() {
-        String val = cardCVCCVV.getAttribute("value");
-        int len = val.length();
-        int sum = 0;
-        for (int i = 0; i < len; i++) {
-            if (val.charAt(i) == ' ') {
-                continue;
-            }
-            sum++;
-        }
-        return sum;
+
+    public int checkCVCCVVFieldValue() {
+        int val = cardCVCCVV.getAttribute("value").length();
+        return val;
     }
 
 

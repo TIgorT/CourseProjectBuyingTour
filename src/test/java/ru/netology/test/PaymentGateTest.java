@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import ru.netology.data.DataHelper;
 import ru.netology.data.SQLHelper;
 import ru.netology.page.MainPage;
-import ru.netology.page.PaymentGatePage;
+
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -39,7 +39,9 @@ public class PaymentGateTest {
         paymentGatePage.introductionOfCardData(cardInfo);
         paymentGatePage.clickOnTheContinueButton();
         var paymentStatus = SQLHelper.getStatusPayments();
+        var tourAmount = SQLHelper.getThePaymentAmount();
         Assertions.assertEquals("APPROVED", paymentStatus);
+        Assertions.assertEquals(DataHelper.tourAmount(), tourAmount);
     }
 
     @Test
@@ -67,7 +69,6 @@ public class PaymentGateTest {
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidDataFirstNameLastNameInLatin());
         paymentGatePage.fillInTheCVCCVVField(DataHelper.generateTheCVCCVVUsingThreeNumericCharacters());
         paymentGatePage.clickOnTheContinueButtonWithTheErrorInformation();
-
     }
 
     @Test
@@ -104,9 +105,9 @@ public class PaymentGateTest {
         var mainPage = new MainPage();
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
-        paymentGatePage.fillInTheCardNumberField(DataHelper.randomEighteenNumericCharacters());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
-        Assertions.assertEquals(DataHelper.eighteenNumericCharactersForAssert(),quantity);
+        var cardInfo = DataHelper.randomEighteenNumericCharacters();
+        paymentGatePage.fillInTheCardNumberField(cardInfo);
+        paymentGatePage.checkCardNumberFieldValue(cardInfo);
     }
 
     @Test
@@ -115,9 +116,9 @@ public class PaymentGateTest {
         var mainPage = new MainPage();
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
-        paymentGatePage.fillInTheCardNumberField(DataHelper.randomNineteenNumericCharacters());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
-        Assertions.assertEquals(DataHelper.nineteenNumericCharactersForAssert(), quantity);
+        var cardInfo = DataHelper.randomNineteenNumericCharacters();
+        paymentGatePage.fillInTheCardNumberField(cardInfo);
+        paymentGatePage.checkCardNumberFieldValue(cardInfo);
     }
 
     @Test
@@ -126,9 +127,9 @@ public class PaymentGateTest {
         var mainPage = new MainPage();
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
-        paymentGatePage.fillInTheCardNumberField(DataHelper.randomTwentyNumericCharacters());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
-        Assertions.assertEquals(DataHelper.twentyNumericCharactersForAssert(), quantity);
+        var cardInfo = DataHelper.randomTwentyNumericCharacters();
+        paymentGatePage.fillInTheCardNumberField(cardInfo);
+        paymentGatePage.checkCardNumberFieldValue(cardInfo);
     }
 
     @Test
@@ -151,9 +152,9 @@ public class PaymentGateTest {
         var mainPage = new MainPage();
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
-        paymentGatePage.fillInTheCardNumberField(DataHelper.generateRandomAlphabeticCharacters());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
-        Assertions.assertEquals(DataHelper.emptyCardNumberFieldForTheAssert(), quantity);
+        var cardInfo = DataHelper.generateRandomAlphabeticCharacters();
+        paymentGatePage.fillInTheCardNumberField(cardInfo);
+        paymentGatePage.checkCardNumberFieldValue("");
     }
 
     @Test
@@ -162,9 +163,9 @@ public class PaymentGateTest {
         var mainPage = new MainPage();
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
-        paymentGatePage.fillInTheCardNumberField(DataHelper.generateRandomSpecialCharacters());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheCardNumberField();
-        Assertions.assertEquals(DataHelper.emptyCardNumberFieldForTheAssert(), quantity);
+        var cardInfo = DataHelper.generateRandomSpecialCharacters();
+        paymentGatePage.fillInTheCardNumberField(cardInfo);
+        paymentGatePage.checkCardNumberFieldValue("");
     }
 
     @Test
@@ -200,8 +201,9 @@ public class PaymentGateTest {
         var mainPage = new MainPage();
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
-        paymentGatePage.fillInTheMonthField(DataHelper.generateAMonthUsingThreeNumericCharacters());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheMonthField();
+        var cardInfo = DataHelper.generateAMonthUsingThreeNumericCharacters();
+        paymentGatePage.fillInTheMonthField(cardInfo);
+        int quantity = paymentGatePage.checkMonthFieldValue();
         Assertions.assertEquals(DataHelper.monthUsingThreeNumericCharactersForAssert(), quantity);
     }
 
@@ -226,7 +228,7 @@ public class PaymentGateTest {
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheMonthField(DataHelper.generateAMonthUsingAlphabeticCharacters());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheMonthField();
+        int quantity = paymentGatePage.checkMonthFieldValue();
         Assertions.assertEquals(DataHelper.emptyMonthFieldForTheAssert(), quantity);
     }
 
@@ -237,7 +239,7 @@ public class PaymentGateTest {
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheMonthField(DataHelper.generateAMonthUsingSpecialSymbols());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheMonthField();
+        int quantity = paymentGatePage.checkMonthFieldValue();
         Assertions.assertEquals(DataHelper.emptyMonthFieldForTheAssert(), quantity);
     }
 
@@ -275,7 +277,7 @@ public class PaymentGateTest {
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheYearField(DataHelper.generateTheYearUsingThreeNumericCharacters());
-       int quantity = paymentGatePage.theNumberOfDigitsInTheYearField();
+        int quantity = paymentGatePage.checkYearFieldValue();
         Assertions.assertEquals(DataHelper.theYearUsingThreeNumericCharactersForAssert(), quantity);
     }
 
@@ -314,7 +316,7 @@ public class PaymentGateTest {
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYearUsingAlphabeticCharacters());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheYearField();
+        int quantity = paymentGatePage.checkYearFieldValue();
         Assertions.assertEquals(DataHelper.emptyYearFieldForTheAssert(), quantity);
     }
 
@@ -325,7 +327,7 @@ public class PaymentGateTest {
         var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYearUsingSpecialSymbols());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheYearField();
+        int quantity = paymentGatePage.checkYearFieldValue();
         Assertions.assertEquals(DataHelper.emptyYearFieldForTheAssert(), quantity);
     }
 
@@ -478,7 +480,7 @@ public class PaymentGateTest {
         paymentGatePage.fillInTheYearField(DataHelper.generateTheCurrentYear());
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidDataFirstNameLastNameInLatin());
         paymentGatePage.fillInTheCVCCVVField(DataHelper.generateTheCVCCVVUsingFourNumericCharacters());
-        int quantity = paymentGatePage.theNumberOfDigitsInTheCVCCVVField();
+        int quantity = paymentGatePage.checkCVCCVVFieldValue();
         Assertions.assertEquals(DataHelper.theCVCCVVUsingFourNumericCharactersForAssert(), quantity);
     }
 
@@ -514,8 +516,7 @@ public class PaymentGateTest {
     @DisplayName("Оплата тура 'Путешествие дня' с использованием пустого поля 'CVC/CVV'")
     public void paymentForTheTourTravelOfTheDayUsingAnEmptyCVCCVVField() {
         var mainPage = new MainPage();
-        mainPage.clickButtonPay();
-        var paymentGatePage = new PaymentGatePage();
+        var paymentGatePage = mainPage.clickButtonPay();
         paymentGatePage.paymentGatePageVisibility();
         paymentGatePage.fillInTheCardNumberField(DataHelper.getApprovedCardNumber());
         paymentGatePage.fillInTheMonthField(DataHelper.generateTheCurrentMonth());
@@ -523,18 +524,4 @@ public class PaymentGateTest {
         paymentGatePage.fillInTheOwnerField(DataHelper.generateValidDataFirstNameLastNameInLatin());
         paymentGatePage.errorFormatInTheCVCCVVField("Поле обязательно для заполнения");
     }
-
-    @Test
-    @DisplayName("Сумма тура 'Путешествие дня' с использованием специального номера APPROVED карты")
-    public void theAmountOfTheTourIsTheJourneyOfTheDayUsingASpecialAPPROVEDCardNumber() {
-        var mainPage = new MainPage();
-        var paymentGatePage = mainPage.clickButtonPay();
-        paymentGatePage.paymentGatePageVisibility();
-        var cardInfo = DataHelper.getValidApprovedCard();
-        paymentGatePage.introductionOfCardData(cardInfo);
-        paymentGatePage.clickOnTheContinueButton();
-        var paymentStatus = SQLHelper.getThePaymentAmount();
-        Assertions.assertEquals(DataHelper.tourAmount(), paymentStatus);
-    }
-
 }
